@@ -1,0 +1,79 @@
+unit WEExt;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls;
+
+type
+  TForm1 = class(TForm)
+    GroupBox1: TGroupBox;
+    btnOpenISO: TButton;
+    edtOpenIso: TLabeledEdit;
+    edtOpenFolder: TLabeledEdit;
+    btnOpenFolder: TButton;
+    cmbListFiles: TComboBox;
+    Label1: TLabel;
+    dlgOpenFolder: TFileOpenDialog;
+    dlgOpenISO: TFileOpenDialog;
+    btnInserFile: TButton;
+    dlgInsertFile: TFileOpenDialog;
+    procedure btnOpenISOClick(Sender: TObject);
+    procedure btnOpenFolderClick(Sender: TObject);
+    procedure cmbListFilesChange(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+uses MisFunciones;
+{$R *.dfm}
+
+procedure TForm1.btnOpenFolderClick(Sender: TObject);
+begin
+if dlgOpenFolder.Execute then
+begin
+edtOpenFolder.Text := dlgOpenFolder.FileName + '\';
+end else
+    begin
+      ShowMessage('Seleccione un directorio para extraer el fichero');
+    end;
+end;
+
+procedure TForm1.btnOpenISOClick(Sender: TObject);
+begin
+if dlgOpenISO.Execute then
+begin
+edtOpenIso.Text := dlgOpenISO.FileName;
+end else
+    begin
+      ShowMessage('Seleccione un archivo de imagen de CD de WE2002');
+    end;
+end;
+
+procedure TForm1.cmbListFilesChange(Sender: TObject);
+var
+aFile : String;
+aIndex : Integer;
+begin
+aIndex := cmbListFiles.ItemIndex;
+aFile := cmbListFiles.Items[aIndex];
+
+
+if (FileExists(edtOpenIso.Text)) AND (DirectoryExists(edtOpenFolder.Text)) then
+begin
+ExtraerFicheroDeLaIso(edtOpenIso.Text,aFile, edtOpenFolder.Text );
+end else
+    begin
+      ShowMessage('Imagen de CD WE2002 o Carpeta de salida inválidos.');
+    end;
+
+end;
+
+end.

@@ -1,0 +1,202 @@
+unit WEExt;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls;
+
+type
+  TForm1 = class(TForm)
+    GroupBox1: TGroupBox;
+    btnOpenISO: TButton;
+    edtOpenIso: TLabeledEdit;
+    edtOpenFolder: TLabeledEdit;
+    btnOpenFolder: TButton;
+    cmbListFiles: TComboBox;
+    Label1: TLabel;
+    dlgOpenFolder: TFileOpenDialog;
+    dlgOpenISO: TFileOpenDialog;
+    dlgInsertFile: TFileOpenDialog;
+    GroupBox2: TGroupBox;
+    edtChangeSize: TLabeledEdit;
+    btnChangeSize: TButton;
+    btnInserFile: TButton;
+    Button1: TButton;
+    lblHexLine: TLabel;
+    procedure btnOpenISOClick(Sender: TObject);
+    procedure btnOpenFolderClick(Sender: TObject);
+    procedure cmbListFilesChange(Sender: TObject);
+    procedure btnInserFileClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure btnChangeSizeClick(Sender: TObject);
+    procedure edtChangeSizeChange(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+uses MisFunciones;
+{$R *.dfm}
+
+procedure TForm1.btnChangeSizeClick(Sender: TObject);
+var
+aIsoFile : TFileStream;
+aOffset : Integer;
+aFile : String;
+aIndex : Integer;
+aValue : Array[0..7] of Byte;
+aHex : String;
+i,aint : Integer;
+begin
+i := 0;
+aInt := 1;
+aIndex := cmbListFiles.ItemIndex;
+aFile := cmbListFiles.Items[aIndex];
+aOffset := BuscaStringEnFichero(edtOpenIso.Text,aFile);
+aOffset := aOffset - 23;
+
+aHex := Copy(lblHexLine.Caption,9,8);
+
+aHex := InvertHex(aHex) + aHex;
+
+while i <= 7 do
+begin
+
+aValue[i] := StrToInt('$' + Copy(aHex,aInt,2));
+aint := aint + 2;
+inc(i);
+end;
+
+aIsoFile := TFileStream.Create(edtOpenIso.Text , fmOpenWrite + fmShareDenyNone );
+try
+
+aIsoFile.Position := aOffset;
+
+aIsoFile.Write(aValue,SizeOf(aValue));
+
+finally
+  aIsoFile.Free;
+end;
+
+end;
+
+procedure TForm1.btnInserFileClick(Sender: TObject);
+var
+aName : string;
+aIndex : Integer;
+begin
+if dlgInsertFile.Execute then
+begin
+aIndex := cmbListFiles.ItemIndex;
+aName := cmbListFiles.Items[aIndex] ;
+InsertarFicheroEnLaIso(edtOpenIso.Text,ExtractFilePath(dlgInsertFile.FileName),
+                       ExtractFileName(dlgInsertFile.FileName), aName);
+
+end else
+    begin
+      ShowMessage('Seleccione un archivo para insertar en la imagen');
+    end;
+end;
+
+procedure TForm1.btnOpenFolderClick(Sender: TObject);
+begin
+if dlgOpenFolder.Execute then
+begin
+edtOpenFolder.Text := dlgOpenFolder.FileName + '\';
+end else
+    begin
+      ShowMessage('Seleccione un directorio para extraer el fichero');
+    end;
+end;
+
+procedure TForm1.btnOpenISOClick(Sender: TObject);
+begin
+if dlgOpenISO.Execute then
+begin
+edtOpenIso.Text := dlgOpenISO.FileName;
+end else
+    begin
+      ShowMessage('Seleccione un archivo de imagen de CD de WE2002');
+    end;
+end;
+
+procedure TForm1.Button1Click(Sender: TObject);
+var
+aFile : String;
+aIndex : Integer;
+begin
+aIndex := cmbListFiles.ItemIndex;
+aFile := cmbListFiles.Items[aIndex];
+
+
+if (FileExists(edtOpenIso.Text)) AND (DirectoryExists(edtOpenFolder.Text)) then
+begin
+ExtraerFicheroDeLaIso(edtOpenIso.Text,aFile, edtOpenFolder.Text );
+end else
+    begin
+      ShowMessage('Imagen de CD WE2002 o Carpeta de salida inválidos.');
+    end;
+
+end;
+
+procedure TForm1.cmbListFilesChange(Sender: TObject);
+var
+aFile : String;
+aIndex, i : Integer;
+aISOFile : TFileStream;
+aBuffer : Array [0..7] of Byte;
+aHex : string;
+begin
+aIndex := cmbListFiles.ItemIndex;
+aFile := cmbListFiles.Items[aIndex];
+btnInserFile.Enabled := True;
+
+i := BuscaStringEnFichero(edtOpenIso.Text,aFile);
+
+if i <> -1 then
+begin
+i := i - 23;
+
+aISOFile := TFileStream.Create(edtOpenIso.Text, fmOpenRead + fmShareDenyNone );
+
+aISOFile.Position := i;
+aISOFile.Read(aBuffer, SizeOf(aBuffer));
+aHex := IntToHex(aBuffer[0],2) + IntToHex(aBuffer[1],2) +
+         IntToHex(aBuffer[2],2) + IntToHex(aBuffer[3],2) + IntToHex(aBuffer[4],2) +
+         IntToHex(aBuffer[5],2) + IntToHex(aBuffer[6],2) + IntToHex(aBuffer[7],2) ;
+aISOFile.Free;
+
+lblHexLine.Caption := aHex;
+
+edtChangeSize.Text := IntToStr(StrToInt('$' + Copy(aHex,9,8)));
+
+end else
+    begin
+      ShowMessage('No se encontró fichero en la ISO');
+    end;
+
+
+
+end;
+
+procedure TForm1.edtChangeSizeChange(Sender: TObject);
+var
+aHex : string;
+begin
+
+aHex := IntToHex(StrToInt(edtChangeSize.Text),8);
+
+aHex := InvertHex(aHex) + aHex;
+
+lblHexLine.Caption := aHex;
+
+
+end;
+
+end.

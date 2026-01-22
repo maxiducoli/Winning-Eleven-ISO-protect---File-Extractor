@@ -1,0 +1,354 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'WE2002 File Injector and extractor -= by @maxiducoli (CARP) =-'
+  ClientHeight = 141
+  ClientWidth = 726
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object GroupBox1: TGroupBox
+    Left = 8
+    Top = 8
+    Width = 710
+    Height = 125
+    Caption = 'GroupBox1'
+    TabOrder = 0
+    object Label1: TLabel
+      Left = 512
+      Top = 32
+      Width = 82
+      Height = 13
+      Caption = 'Fichero en la ISO'
+    end
+    object btnOpenISO: TButton
+      Left = 416
+      Top = 30
+      Width = 75
+      Height = 25
+      Caption = 'Abrir ISO'
+      TabOrder = 0
+      OnClick = btnOpenISOClick
+    end
+    object edtOpenIso: TLabeledEdit
+      Left = 16
+      Top = 32
+      Width = 385
+      Height = 21
+      EditLabel.Width = 82
+      EditLabel.Height = 13
+      EditLabel.Caption = 'Abrir archivo ISO'
+      TabOrder = 1
+    end
+    object edtOpenFolder: TLabeledEdit
+      Left = 16
+      Top = 88
+      Width = 385
+      Height = 21
+      EditLabel.Width = 107
+      EditLabel.Height = 13
+      EditLabel.Caption = 'Carpeta de extracci'#243'n'
+      TabOrder = 2
+    end
+    object btnOpenFolder: TButton
+      Left = 416
+      Top = 86
+      Width = 75
+      Height = 25
+      Caption = 'Abrir Carpeta'
+      TabOrder = 3
+    end
+    object cmbListFiles: TComboBox
+      Left = 512
+      Top = 51
+      Width = 169
+      Height = 21
+      TabOrder = 4
+      Text = 'cmbListFiles'
+      Items.Strings = (
+        '01GOALDM.DA'
+        '02GMOVER.DA'
+        '03SELE01.DA'
+        '04SELE02.DA'
+        '05RSLT01.DA'
+        '06TITLEV.DA'
+        '07STAFF1.DA'
+        '08STAFF2.DA'
+        'ANIME.BIN'
+        'CGAF.BIN'
+        'CGAM.BIN'
+        'CGAS.BIN'
+        'CGEU.BIN'
+        'CGIC.BIN'
+        'CGKO.BIN'
+        'CGLE.BIN'
+        'CGML.BIN'
+        'CGOL.BIN'
+        'CGOLB_O.BIN'
+        'CGOLS_O.BIN'
+        'DAT_CG.BIN'
+        'DAT_LC.BIN'
+        'DAT2D.BIN'
+        'DATSEL.BIN'
+        'DATSEL2.BIN'
+        'DATSEL3.BIN'
+        'DEMODATA.BIN'
+        'EDT_2D.BIN'
+        'EDT_MOD.BIN'
+        'EDTR_2D.BIN'
+        'ENDANIME.BIN'
+        'ENDCSR.BIN'
+        'ENDCSR2.BIN'
+        'ENDCSRM1.BIN'
+        'ENDING.BIN'
+        'ENTER.BIN'
+        'GAME.BIN'
+        'GDC_AD.BIN'
+        'GDC_AN.BIN'
+        'GDC_BD.BIN'
+        'GDC_BN.BIN'
+        'GDC_CD.BIN'
+        'GDC_CN.BIN'
+        'GDC_DD.BIN'
+        'GDC_DN.BIN'
+        'GDC_FD.BIN'
+        'GDC_FN.BIN'
+        'GDC_GDJ.BIN'
+        'GDC_GNJ.BIN'
+        'GDC_HD.BIN'
+        'GDC_HN.BIN'
+        'GDC_ID.BIN'
+        'GDC_IN.BIN'
+        'GDC_JD.BIN'
+        'GDC_JN.BIN'
+        'GDC_MD.BIN'
+        'GDC_MDJ.BIN'
+        'GDC_MN.BIN'
+        'GDC_MNJ.BIN'
+        'GDC_OD.BIN'
+        'GDC_ON.BIN'
+        'GDC_PD.BIN'
+        'GDC_PN.BIN'
+        'GDC_RDJ.BIN'
+        'GDC_RNJ.BIN'
+        'GDC_SD.BIN'
+        'GDC_SN.BIN'
+        'GDC_TD.BIN'
+        'GDC_TN.BIN'
+        'GDC_VD.BIN'
+        'GDC_VN.BIN'
+        'GRDM_A.BIN'
+        'GRDM_B.BIN'
+        'GRDM_C.BIN'
+        'GRDM_D.BIN'
+        'GRDM_F.BIN'
+        'GRDM_GJ.BIN'
+        'GRDM_H.BIN'
+        'GRDM_I.BIN'
+        'GRDM_J.BIN'
+        'GRDM_M.BIN'
+        'GRDM_MJ.BIN'
+        'GRDM_O.BIN'
+        'GRDM_P.BIN'
+        'GRDM_RJ.BIN'
+        'GRDM_S.BIN'
+        'GRDM_T.BIN'
+        'GRDM_V.BIN'
+        'INIT.BIN'
+        'LC_AF.BIN'
+        'LC_AM.BIN'
+        'LC_AS.BIN'
+        'LC_EU.BIN'
+        'LC_IC.BIN'
+        'LC_KO.BIN'
+        'LC_LG.BIN'
+        'LC_MS.BIN'
+        'LC_OL.BIN'
+        'LOGO.BIN'
+        'MODEL.BIN'
+        'MOVIE.BIN'
+        'OPENNING.BIN'
+        'PKMATCH.BIN'
+        'REPLAYS.BIN'
+        'RESULT.BIN'
+        'SELECT.BIN'
+        'SELECT2.BIN'
+        'SELECT3.BIN'
+        'SELECT4.BIN'
+        'SELECT5.BIN'
+        'SELECT6.BIN'
+        'SELECT7.BIN'
+        'SELECT8.BIN'
+        'SELECT9.BIN'
+        'SELECTA.BIN'
+        'SELECTB.BIN'
+        'SELECTC.BIN'
+        'SELFORM.BIN'
+        'SLPM_870.56'
+        'STAFF2.BIN'
+        'SYSTEM.CNF'
+        'T_NAME.BIN'
+        'TEX_00.BIN'
+        'TEX_01.BIN'
+        'TEX_02.BIN'
+        'TEX_03.BIN'
+        'TEX_04.BIN'
+        'TEX_05.BIN'
+        'TEX_06.BIN'
+        'TEX_07.BIN'
+        'TEX_08.BIN'
+        'TEX_09.BIN'
+        'TEX_10.BIN'
+        'TEX_11.BIN'
+        'TEX_12.BIN'
+        'TEX_13.BIN'
+        'TEX_14.BIN'
+        'TEX_15.BIN'
+        'TEX_16.BIN'
+        'TEX_17.BIN'
+        'TEX_18.BIN'
+        'TEX_19.BIN'
+        'TEX_20.BIN'
+        'TEX_21.BIN'
+        'TEX_22.BIN'
+        'TEX_23.BIN'
+        'TEX_24.BIN'
+        'TEX_25.BIN'
+        'TEX_26.BIN'
+        'TEX_27.BIN'
+        'TEX_28.BIN'
+        'TEX_29.BIN'
+        'TEX_30.BIN'
+        'TEX_31.BIN'
+        'TEX_32.BIN'
+        'TEX_33.BIN'
+        'TEX_34.BIN'
+        'TEX_35.BIN'
+        'TEX_36.BIN'
+        'TEX_37.BIN'
+        'TEX_38.BIN'
+        'TEX_39.BIN'
+        'TEX_40.BIN'
+        'TEX_41.BIN'
+        'TEX_42.BIN'
+        'TEX_43.BIN'
+        'TEX_44.BIN'
+        'TEX_45.BIN'
+        'TEX_46.BIN'
+        'TEX_47.BIN'
+        'TEX_48.BIN'
+        'TEX_49.BIN'
+        'TEX_50.BIN'
+        'TEX_51.BIN'
+        'TEX_52.BIN'
+        'TEX_53.BIN'
+        'TEX_54.BIN'
+        'TEX_55.BIN'
+        'TEX_56.BIN'
+        'TEX_57.BIN'
+        'TEX_58.BIN'
+        'TEX_59.BIN'
+        'TEX_60.BIN'
+        'TEX_61.BIN'
+        'TEX_62.BIN'
+        'TEX_63.BIN'
+        'TEX_64.BIN'
+        'TEX_65.BIN'
+        'TEX_66.BIN'
+        'TEX_67.BIN'
+        'TEX_68.BIN'
+        'TEX_69.BIN'
+        'TEX_70.BIN'
+        'TEX_71.BIN'
+        'TEX_72.BIN'
+        'TEX_73.BIN'
+        'TEX_74.BIN'
+        'TEX_75.BIN'
+        'TEX_76.BIN'
+        'TEX_77.BIN'
+        'TEX_78.BIN'
+        'TEX_79.BIN'
+        'TEX_80.BIN'
+        'TEX_81.BIN'
+        'TEX_82.BIN'
+        'TEX_83.BIN'
+        'TEX_84.BIN'
+        'TEX_85.BIN'
+        'TEX_86.BIN'
+        'TEX_87.BIN'
+        'TEX_88.BIN'
+        'TEX_89.BIN'
+        'TEX_90.BIN'
+        'TEX_91.BIN'
+        'TEX_92.BIN'
+        'TEX_93.BIN'
+        'TEX_94.BIN'
+        'TEX_95.BIN'
+        'TEX_96.BIN'
+        'TEX_97.BIN'
+        'TEX_98.BIN'
+        'TEX_99.BIN'
+        'TEX_A0.BIN'
+        'TEX_A1.BIN'
+        'TEX_A2.BIN'
+        'TEX_A3.BIN'
+        'TEX_A4.BIN'
+        'TITLE.BIN'
+        'TRAINING.BIN'
+        'W2002J00.RA'
+        'W2002J10.RA'
+        'W2002J11.RA'
+        'W2002J12.RA'
+        'W2002J60.RA'
+        'W2002J61.RA'
+        'W2002J62.RA'
+        'W2002J63.RA'
+        'W2002J64.RA'
+        'W2002J65.RA'
+        'W2002J70.RA'
+        'W2002J71.RA'
+        'W2002J72.RA'
+        'W2002J73.RA'
+        'W2002J74.RA'
+        'WE2002.STR')
+    end
+    object btnInserFile: TButton
+      Left = 560
+      Top = 86
+      Width = 75
+      Height = 25
+      Caption = 'Insert File'
+      Enabled = False
+      TabOrder = 5
+    end
+  end
+  object dlgOpenFolder: TFileOpenDialog
+    FavoriteLinks = <>
+    FileTypes = <>
+    Options = [fdoPickFolders]
+    Title = 'Seleccionar carpeta'
+    Left = 352
+    Top = 80
+  end
+  object dlgOpenISO: TFileOpenDialog
+    FavoriteLinks = <>
+    FileTypes = <>
+    Options = []
+    Title = 'Seleccionar archivo de imagen de CD WE2002'
+    Left = 352
+    Top = 24
+  end
+  object dlgInsertFile: TFileOpenDialog
+    FavoriteLinks = <>
+    FileTypes = <>
+    Options = []
+    Left = 488
+    Top = 64
+  end
+end
